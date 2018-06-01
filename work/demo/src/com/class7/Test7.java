@@ -100,6 +100,7 @@ public class Test7 {
 			v.remove(5);
 		}
 		
+		
 		for(Iterator<String> i = v.iterator() ; i.hasNext();){
 			String s = i.next();
 			System.out.print(s + " ");
