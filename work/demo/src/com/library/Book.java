@@ -1,6 +1,6 @@
 package com.library;
 
-public class Book {
+public class Book  {
 
 	String title,author,lender, lendDate, returnDate;
 	boolean isRental;
