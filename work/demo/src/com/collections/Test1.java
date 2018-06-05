@@ -19,7 +19,7 @@ public class Test1 {
 		ob.age = 25;
 		v.add(ob);
 		
-		// 잘못작성하는경우
+
 		ob = new Test();
 		ob.name="박신혜";
 		ob.age=28;

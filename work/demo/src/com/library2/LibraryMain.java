@@ -19,8 +19,10 @@ public class LibraryMain {
 			e1.printStackTrace();
 		}
 		while(true){
+			System.out.println("-----------------------------------------------------------------");
 			System.out.println("도서 관리 프로그램");
 			System.out.println("1.등록 2.도서목록 3.대여 4.반납 5.삭제 6.검색 7.제목순정렬 8.종료 ?");
+			System.out.println("-----------------------------------------------------------------");
 			cmd = sc.nextInt();
 			
 			if(cmd == 1){
