@@ -61,7 +61,7 @@ public class NaverVO {
 				+ "성별 : " + gender +"\n"
 				+ "생년월일: " + birth+"\n"
 				+ "휴대전화번호 : " + tel +"\n"
-				+ " 이메일 : " + email + "\n";
+				+ "이메일 : " + email + "\n";
 		return str;
 	}
 	
