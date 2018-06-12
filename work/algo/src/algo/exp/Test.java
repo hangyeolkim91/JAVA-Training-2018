@@ -1,5 +1,10 @@
 package algo.exp;
 
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 class MethodTest{
 // 접근제한자 / 반환값의 자료형 / 메소드 이름 / (메소드의 인자){
 //	
@@ -35,14 +40,20 @@ class MethodTest{
 
 public class Test {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
-		MethodTest mt = new MethodTest();
+/*		MethodTest mt = new MethodTest();
 		mt.methodName1();
 		mt.methodName2(1);
 		mt.methodName3();
 		mt.methodName4("인자");
-
+*/
+		
+		DataInputStream dis = new DataInputStream(System.in);
+		int a = dis.read();
+		System.out.println(a);
+		
+		
 	}
 
 }
