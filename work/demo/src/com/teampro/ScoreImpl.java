@@ -65,7 +65,7 @@ public class ScoreImpl implements Score{
 	}
 	@Override
 	public void print(TextArea ta) {
-		ta.setText("이름\t생일\t점수");
+		ta.setText("이름\t생일\t점수\n");
 		Iterator<ScoreVO> it = list.iterator();
 		while(it.hasNext()){
 			ScoreVO vo = it.next();
@@ -89,13 +89,14 @@ public class ScoreImpl implements Score{
 		
 		list.add(vo);
 	}
-
+	
 	@Override
 	public void input(ScoreVO vo) {
-		
 		list.add(vo);
 		
+		
 	}
+
 
 
 }

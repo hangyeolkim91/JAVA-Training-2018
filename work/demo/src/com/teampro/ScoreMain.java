@@ -75,7 +75,9 @@ public class ScoreMain extends Frame implements ActionListener {
 		
 		new ScoreMain();
 		
+
 		/*int ch;
+
 		Scanner sc = new Scanner(System.in);
 		
 		Score s = new ScoreImpl();
@@ -102,6 +104,7 @@ public class ScoreMain extends Frame implements ActionListener {
 		if( ob instanceof Button){
 			Button b = (Button)ob;
 			if(b==btn1){
+
 				if( tf[0].getText() != "" && tf[1].getText() != "" && tf[2].getText() != "") {
 					ScoreVO vo = new ScoreVO();
 					vo.setName(tf[0].getText());
@@ -110,7 +113,8 @@ public class ScoreMain extends Frame implements ActionListener {
 					s.input(vo);
 					s.print(ta);
 				}
-			}else if ( b== btn2) {
+
+			}else if ( b == btn2) {
 				s.saveAndExit();
 			}
 		}
