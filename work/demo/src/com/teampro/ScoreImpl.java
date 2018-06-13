@@ -90,6 +90,12 @@ public class ScoreImpl implements Score{
 		list.add(vo);
 	}
 
+	@Override
+	public void input(ScoreVO vo) {
+		
+		list.add(vo);
+		
+	}
 
 
 }
