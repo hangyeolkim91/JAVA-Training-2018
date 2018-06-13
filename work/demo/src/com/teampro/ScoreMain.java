@@ -37,12 +37,7 @@ public class ScoreMain extends Frame implements ActionListener {
 		setLayout(null);
 		setTitle("己利贸府");
 		setResizable(true);
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				System.exit(0);
-			}
-		});
+		
 		
 		for(int i=0; i<tf.length; i++){
 			Label lb = new Label();
@@ -67,14 +62,21 @@ public class ScoreMain extends Frame implements ActionListener {
 		add(btn2);
 		btn2.addActionListener(this);
 		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				s.saveAndExit();
+			}
+		});
+		
 		
 	}
 
 	public static void main(String[] args) {
 		
-		//new ScoreMain();
+		new ScoreMain();
 		
-		int ch;
+/*		int ch;
 		Scanner sc = new Scanner(System.in);
 		
 		Score s = new ScoreImpl();
@@ -91,7 +93,7 @@ public class ScoreMain extends Frame implements ActionListener {
 				s.saveAndExit();
 				//System.exit(0);
 			}
-		}
+		}*/
 
 	}
 
@@ -101,7 +103,16 @@ public class ScoreMain extends Frame implements ActionListener {
 		if( ob instanceof Button){
 			Button b = (Button)ob;
 			if(b==btn1){
-				
+				if( tf[0].getText() != "" && tf[1].getText() != "" && tf[2].getText() !="" ) {
+					ScoreVO vo = new ScoreVO();
+					vo.setName(tf[0].getText());
+					vo.setBirth(tf[1].getText());
+					vo.setScore(Integer.parseInt(tf[2].getText()));
+					s.input(vo);
+					s.print(ta);
+				}
+			}else if ( b == btn2) {
+				s.saveAndExit();
 			}
 		}
 	}
