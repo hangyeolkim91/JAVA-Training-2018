@@ -33,7 +33,7 @@ public class ScoreImpl implements Score{
 			ois.close();
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 

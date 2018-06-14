@@ -73,10 +73,10 @@ public class ScoreMain extends Frame implements ActionListener {
 
 	public static void main(String[] args) {
 		
-		new ScoreMain();
+		//new ScoreMain();
 		
 
-		/*int ch;
+		int ch;
 
 		Scanner sc = new Scanner(System.in);
 		
@@ -94,7 +94,7 @@ public class ScoreMain extends Frame implements ActionListener {
 				s.saveAndExit();
 				//System.exit(0);
 			}
-		}*/
+		}
 
 	}
 
