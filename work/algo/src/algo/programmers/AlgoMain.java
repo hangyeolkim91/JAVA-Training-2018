@@ -25,7 +25,7 @@ public class AlgoMain {
 		System.out.println(Arrays.toString(answer));*/
 		
 		KakaoBrian kb = new KakaoBrian();
-		String sentence = "oAxAxAxAo";
+		String sentence = "HaEaLaLaObWORLDb";
 		System.out.println(kb.solution(sentence));
 	}
 

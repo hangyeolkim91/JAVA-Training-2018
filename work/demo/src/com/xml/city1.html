@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>XML 파싱</title>
+
+<script type="text/javascript">
+
+	var xmlDoc =new ActiveXObject("Msxml2.DOMDocument");
+	xmlDoc.load("city.xml");
+	
+	function printNodeName(){
+		var city = xmlDoc.getElementsByTagName("도시")[0];
+		var cityName = city.firstChild.nodeName;
+		
+		alert("첫번째 도시: " + cityName);
+		cityName = city.lastChild.nodeName;
+		alert("마지막 도시 : " + cityName);
+		
+		var cityNames="";
+		
+		for(var i =0; i<city.childNodes.length; i++){
+			cityNames = cityNames +"\n" + city.childNodes[i].nodeName;
+		}
+		
+		alert("전체도시 : " + cityNames);
+	}
+	
+	function printNodeValue(){
+		
+		var seoul = xmlDoc.getElementsByTagName("서울")[0];
+		var incheon = xmlDoc.getElementsByTagName("인천")[0];
+		
+		var items = seoul.getElementsByTagName("구");
+		
+		var out = "";
+		
+		for(var i=0; i<items.length; i++){
+			out += "\n" + items[i].childNodes[0].nodeValue;
+		}
+		
+		alert(out);
+		
+	}
+	
+	function printXML(){
+		
+		alert(xmlDoc.xml);
+		
+	}
+
+</script>
+
+</head>
+<body>
+<input type="button" value="노드이름 출력" onclick="printNodeName();"/>
+<br/>
+<input type="button" value="노드값 출력" onclick="printNodeValue();"/>
+<br/>
+<input type="button" value="노드전체 구조" onclick="printXML();"/>
+</body>
+</html>
