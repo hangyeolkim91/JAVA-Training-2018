@@ -1,5 +1,6 @@
 package com.rest;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
@@ -9,6 +10,10 @@ public class RestVO implements Serializable {
 	
 	private String name;
 	private List<FoodVO> food = new Vector<FoodVO>();
+	private boolean isSpecial;
+	private String feature;
+	private File img;
+	
 	
 	public String getName() {
 		return name;
@@ -25,6 +30,24 @@ public class RestVO implements Serializable {
 	
 	
 	
+	public boolean isSpecial() {
+		return isSpecial;
+	}
+	public void setSpecial(boolean isSpecial) {
+		this.isSpecial = isSpecial;
+	}
+	public String getFeature() {
+		return feature;
+	}
+	public void setFeature(String feature) {
+		this.feature = feature;
+	}
+	public File getImg() {
+		return img;
+	}
+	public void setImg(File img) {
+		this.img = img;
+	}
 	@Override
 	public String toString() {
 		String str =name;

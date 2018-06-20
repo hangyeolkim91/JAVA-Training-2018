@@ -1,8 +1,11 @@
 package com.rest;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Iterator;
@@ -42,7 +45,7 @@ public class Rest {
 
 			String url = null;
 			for(int k=0; k<21; k++){
-				
+				System.out.println("xml 파싱중 .... ("+(k+1)+"/21)");
 				int nn = 0;
 				url = "http://data.ex.co.kr/exopenapi/restinfo/restBestfoodList?type=xml&numOfRows=100&ServiceKey=fw1H1W6zTKz61F2a41o%2BpXHwFh22RwDbTp0CXJxq47VGp22CD1HjLi2ovm7ENhDZvNffrQhlCVWeqQrSWDp5Kw%3D%3D&pageNo=";
 				url += (k+1);
@@ -240,11 +243,31 @@ public class Rest {
 			for(Iterator<FoodVO> itf = vo.getFood().iterator(); itf.hasNext();){
 				FoodVO fvo = itf.next();
 				
-				str += index+"."+fvo.toString() + "\n";
+				if(fvo.isChang()){
+					
+					if(index <10){
+						str += index+".-";
+					}else{
+						str += index+".";
+					}
+					str += "------------------------------------------------------------------------------------------\n|" + fvo.toString() + "      |\n---------------------------------------------------------------------------------------------\n";
+				}else if ( fvo.isYoung()){
+					
+					if(index <10){
+						str += index+".*";
+					}else{
+						str += index+".";
+					}
+					str += "***************************************************************************************\n*" + fvo.toString() + "   *\n******************************************************************************************\n";
+				}else{
+					str += index+"."+fvo.toString() + "\n";
+				}
+				
 				index++;
 			}
 			
-			System.out.println(vo.toString() +"\n--------------------------------------\n"+str);
+			System.out.println(vo.toString() +"\n"+str);
+			
 			System.out.println(index+".상위로");
 			System.out.println("평점 남길 메뉴?");
 			
@@ -284,5 +307,171 @@ public class Rest {
 		
 		
 	}
+	
+	public void specialInit(){
+		String[] rest = {"추풍령(서울)휴게소","덕평휴게소", "이천(통영)휴게소","행담도휴게소","현풍(대구)휴게소","현풍(현풍)휴게소","섬진강(부산)휴게소" };
+		String[] feat = {"-국내최초휴게소", "-별빛정원", "-7080" , "-섬 속의 쉼터" , "-도깨비공원", "-500년된 느티나무", "-피아노계단"};
+		File[] imgs = {new File("chu.txt"), new File("deok.txt"), new File("icheon.txt"), new File("hangdam.txt"), new File("hdae.txt"), new File("hyunpong.txt"), new File("sumgin.txt")};
+		
+		for(Iterator<RestVO> it = restList.iterator(); it.hasNext();){
+			RestVO vo = it.next();
+			
+			for(int i=0; i<rest.length; i++){
+			
+				if( vo.getName().equals(rest[i])){
+					
+					vo.setFeature(feat[i]);
+					vo.setImg(imgs[i]);
+					vo.setSpecial(true);
+				}
+			}
+			
+		}
+	}
+	
+	public void printSpecial(){
+
+		List<RestVO> tempList = new Vector<RestVO>();
+		for(Iterator<RestVO> it = restList.iterator() ; it.hasNext();){
+			RestVO vo = it.next();
+			
+			if( vo.isSpecial()){
+				tempList.add(vo);
+				
+			}
+		}
+		
+		while(true){
+			int index = 1;
+
+			for(Iterator<RestVO> it = tempList.iterator(); it.hasNext();){
+				RestVO vo = it.next();
+				System.out.println(index+". "+vo.toString() + vo.getFeature());
+				index++;
+			}
+			int ch;
+			System.out.println(index+". 상위로");
+			ch = sc.nextInt();
+			if ( ch == index )
+				return;
+			try {
+				FileInputStream fis = new FileInputStream(tempList.get(ch-1).getImg());
+				BufferedReader br = new BufferedReader(new InputStreamReader(fis));
+				
+				String str ;
+				
+				while( (str = br.readLine())!= null){
+					System.out.println(str);
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}
+	}
+	
+	public void printChang(){
+		
+		
+		
+		// iterator 생성한다.
+		//for문을 사용해서 휴게소 들을 하나씩 꺼낸다 (반복문 for, while).
+		
+		// for 혹은 while 안에서 휴게소 하나가 가진 메뉴들을 하나씩 꺼내어 창렬한지 검사한다. (isChang 메소드)
+		for(Iterator<RestVO> it = restList.iterator(); it.hasNext();){
+
+			//휴게소를 꺼냈다......
+
+			RestVO vo = it.next();
+
+			//메뉴들을 하나씩 꺼낸다...창렬이 거르기
+
+			for(Iterator<FoodVO> itf = vo.getFood().iterator(); itf.hasNext();){
+
+				FoodVO vof = itf.next();
+
+				if(vof.isChang()){
+					System.out.println(vo.getName() + "\n" + vof);
+				}
+
+			}
+			System.out.println();
+		}
+
+		
+		
+	}
+	
+	public void eyoung(){
+
+		String[] huge ={"서울만남(부산)휴게소","가평(춘천)휴게소","마장복합휴게소",
+				"보성녹차(광양)휴게소","횡성(강릉)휴게소","강릉(강릉)휴게소","서산(목포)휴게소",
+				"안성(부산)휴게소","금강휴게소","망향(부산)휴게소"};
+
+		String[] menu ={"말죽거리소고기국밥","잣국수","이천쌀밥정식",
+				"꼬막비빔밥","횡성한우떡더덕스테이크","황태해장국","어리굴젓백반",
+				"소떡소떡","금강도리뱅뱅정식","호두과자"};
+		
+		Iterator<RestVO> it = restList.iterator();
+		
+		while(it.hasNext() ){
+			RestVO vo = it.next();
+			for(int i=0;i<huge.length;i++){
+				if(huge[i].equals(vo.getName())){
+					boolean check = false;
+					for(int j=0;j<vo.getFood().size() ;j++){
+						if(menu[i].equals(vo.getFood().get(j).getName())){
+	
+							vo.getFood().get(j).setYoung(true);
+							check =true;
+	
+						}
+	
+					}
+					if( !check ){
+						FoodVO f = new FoodVO();
+						f.setName(menu[i]);
+						f.setYoung(true);
+						vo.getFood().add(f);
+						
+					}
+	
+				}
+			}
+		}
+	}
+
+	public void eyounprint(){
+		Iterator<RestVO> it = restList.iterator();
+		
+		int index =1;
+		
+		while(it.hasNext()){
+			RestVO vo = it.next();
+			
+			Iterator<FoodVO> itf = vo.getFood().iterator();
+			
+			boolean isPrintRest = false;
+			
+			while(itf.hasNext()){
+				FoodVO fvo = itf.next();
+				
+				if( fvo.isYoung() ){
+					if( !isPrintRest){
+						System.out.print("\n"+index + ". " +vo.toString()+"\n\n");
+						isPrintRest = true;
+						index++;
+					}
+					System.out.println(  fvo.toString());
+					
+				}
+			}
+			
+		}
+	}
+	
+	
 	
 }

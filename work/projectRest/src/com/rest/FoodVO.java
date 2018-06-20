@@ -68,12 +68,16 @@ public class FoodVO implements Serializable{
 	
 	@Override
 	public String toString() {
-		String str = "메뉴명:"+name + "\t가격: " + price + "\t평점 : " + rating + "\t계절메뉴: " + season;
-		if(isChang){
-			str += " 창렬";
-		}else if ( isYoung){
-			str += " 영자";
+
+		if(name.length() <22){
+			while(name.length() <22){
+				name += "　";
+			}
 		}
+		String str = String.format("%s\t%4s %6d %4s %.2g %6s %2s", name , "가격: " , price , "평점: " , rating , "계절메뉴: " , season);
+		 
+
+		
 		return str;
 	}
 	

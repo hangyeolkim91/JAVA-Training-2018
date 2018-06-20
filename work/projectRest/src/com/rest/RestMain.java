@@ -9,13 +9,17 @@ public class RestMain {
 		Rest r = new Rest();
 		
 		r.getXml();
-		r.writeFile();
+		r.specialInit();
+		r.eyoung();
+		//r.print();
+		
 		Scanner sc = new Scanner(System.in);
+		
 		int ch;
 		while(true){
 			
 			do{
-				System.out.println("1.휴게소검색 2.이영자리스트 3.창렬리스트 4.기타");
+				System.out.println("1.휴게소검색 2.이영자리스트 3.창렬리스트 4.이색휴게소 5.종료");
 				ch = sc.nextInt();
 			}while(ch <1 || ch>10);
 			
@@ -25,9 +29,19 @@ public class RestMain {
 				ch = sc.nextInt();
 				
 				r.search(ch);
+			}else if ( ch ==2 ){
+				r.eyounprint();
+			}else if ( ch == 3){
+				r.printChang();
+			}else if ( ch==4){
+				r.printSpecial();
+				
+			}else if ( ch == 5){
+				r.writeFile();
+				System.exit(0);
 			}
 		}
-		//r.print();
+		
 	}
 
 }
