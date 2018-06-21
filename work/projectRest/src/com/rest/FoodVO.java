@@ -71,7 +71,7 @@ public class FoodVO implements Serializable{
 
 		if(name.length() <22){
 			while(name.length() <22){
-				name += "　";
+				name += "　"; 
 			}
 		}
 		String str = String.format("%s\t%4s %6d %4s %.2g %6s %2s", name , "가격: " , price , "평점: " , rating , "계절메뉴: " , season);
