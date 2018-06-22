@@ -250,7 +250,7 @@ public class Rest {
 					}else{
 						str += index+".";
 					}
-					str += "------------------------------------------------------------------------------------------\n|" + fvo.toString() + "      |\n---------------------------------------------------------------------------------------------\n";
+					str += "---------------------------------------------------------------------------------------\n|" + fvo.toString() + " |\n------------------------------------------------------------------------------------------\n";
 				}else if ( fvo.isYoung()){
 					
 					if(index <10){
@@ -258,7 +258,7 @@ public class Rest {
 					}else{
 						str += index+".";
 					}
-					str += "***************************************************************************************\n*" + fvo.toString() + "   *\n******************************************************************************************\n";
+					str += "***************************************************************************************\n*" + fvo.toString() + " *\n******************************************************************************************\n";
 				}else{
 					str += index+"."+fvo.toString() + "\n";
 				}
@@ -273,7 +273,7 @@ public class Rest {
 			
 			ch = sc.nextInt();
 			
-			if( ch == index)
+			if( ch >= index || ch<1)
 				return;
 			System.out.println("평점? (0~5.0)");
 			double rat = sc.nextDouble();
@@ -352,17 +352,21 @@ public class Rest {
 			int ch;
 			System.out.println(index+". 상위로");
 			ch = sc.nextInt();
-			if ( ch == index )
+			if ( ch >= index || ch <1 )
 				return;
 			try {
-				FileInputStream fis = new FileInputStream(tempList.get(ch-1).getImg());
+				printThread pt = new printThread(tempList.get(ch-1).getImg());
+				pt.start();
+				
+				pt.join();
+				/*FileInputStream fis = new FileInputStream(tempList.get(ch-1).getImg());
 				BufferedReader br = new BufferedReader(new InputStreamReader(fis));
 				
 				String str ;
 				
 				while( (str = br.readLine())!= null){
 					System.out.println(str);
-				}
+				}*/
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -380,6 +384,7 @@ public class Rest {
 		//for문을 사용해서 휴게소 들을 하나씩 꺼낸다 (반복문 for, while).
 		
 		// for 혹은 while 안에서 휴게소 하나가 가진 메뉴들을 하나씩 꺼내어 창렬한지 검사한다. (isChang 메소드)
+		int index = 1;
 		for(Iterator<RestVO> it = restList.iterator(); it.hasNext();){
 
 			//휴게소를 꺼냈다......
@@ -387,17 +392,24 @@ public class Rest {
 			RestVO vo = it.next();
 
 			//메뉴들을 하나씩 꺼낸다...창렬이 거르기
-
+			
+			boolean isPrintRest = false;
 			for(Iterator<FoodVO> itf = vo.getFood().iterator(); itf.hasNext();){
 
+				
 				FoodVO vof = itf.next();
 
 				if(vof.isChang()){
-					System.out.println(vo.getName() + "\n" + vof);
+					if( !isPrintRest){
+						System.out.print("\n"+index + ". " +vo.toString()+"\n\n");
+						isPrintRest = true;
+						index++;
+					}
+					System.out.println(vof.toString());
 				}
 
 			}
-			System.out.println();
+			
 		}
 
 		
@@ -413,6 +425,10 @@ public class Rest {
 		String[] menu ={"말죽거리소고기국밥","잣국수","이천쌀밥정식",
 				"꼬막비빔밥","횡성한우떡더덕스테이크","황태해장국","어리굴젓백반",
 				"소떡소떡","금강도리뱅뱅정식","호두과자"};
+		
+		if(f.exists()){
+			return;
+		}
 		
 		Iterator<RestVO> it = restList.iterator();
 		
@@ -434,6 +450,15 @@ public class Rest {
 						FoodVO f = new FoodVO();
 						f.setName(menu[i]);
 						f.setYoung(true);
+						if( menu[i].equals("이천쌀밥정식")){
+							f.setPrice(12000);
+						}else if (menu[i].equals("호두과자")){
+							f.setPrice(2000);
+						}else if (menu[i].equals("소떡소떡")){
+							f.setPrice(3000);
+						}else if (menu[i].equals("잣국수")){
+							f.setPrice(8000);
+						}
 						vo.getFood().add(f);
 						
 					}
@@ -473,5 +498,69 @@ public class Rest {
 	}
 	
 	
+	public void printTitle(){
+		try {
+		
+			File ff = new File("title.txt");
+			
+			printThread pt = new printThread(ff);
+			pt.start();
+			pt.join();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	public void printending(){
+		try {
+			
+			File ff = new File("ending.txt");
+			
+			printThread pt = new printThread(ff);
+			pt.start();
+			pt.join();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	class printThread extends Thread{
+		
+		File f;
+		
+		public printThread(File f){
+			
+			this.f = f;
+			
+			
+			
+			
+			
+		}
+		
+		@Override
+		public void run() {
+			try {
+			
+				BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(f)));
+				
+				String str;
+				
+				while( (str = br.readLine() ) != null){
+					System.out.println(str);
+					
+					sleep(100);
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace(); 
+			}
+			
+		}
+	}
 	
 }

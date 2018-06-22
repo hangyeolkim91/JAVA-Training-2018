@@ -14,7 +14,7 @@ public class RestMain {
 		//r.print();
 		
 		Scanner sc = new Scanner(System.in);
-		
+		r.printTitle();
 		int ch;
 		while(true){
 			
@@ -37,6 +37,7 @@ public class RestMain {
 				r.printSpecial();
 				
 			}else if ( ch == 5){
+				r.printending();
 				r.writeFile();
 				System.exit(0);
 			}

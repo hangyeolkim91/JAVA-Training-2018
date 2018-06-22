@@ -45,31 +45,45 @@ public class Test  {
 
 	public static void main(String[] args) {
 
-		Test t = new Test();
+		//Test t = new Test();
 
 		try {
 
 			ServerSocket serverSock = new ServerSocket(5555);
 			Socket sock = serverSock.accept();
-
+			ObjectInputStream ois = new ObjectInputStream(sock.getInputStream());
+			
 			System.out.println(sock.getInetAddress().getHostAddress()+"접속");
+			
+			List<RestVO> list = new ArrayList<RestVO>();
 
-			System.out.println("받기전 크기 " + t.list.size());
+			System.out.println("받기전 크기 " + list.size());
 			/*ObjectOutputStream oos = new ObjectOutputStream(sock.getOutputStream());
 			oos.writeObject(t.list);*/
 
-			ObjectInputStream ois = new ObjectInputStream(sock.getInputStream());
-			t.list = (List<RestVO>)ois.readObject();
-			System.out.println("받은 크기" + t.list.size());
-			for(Iterator<RestVO> it = t.list.iterator(); it.hasNext();){
+			
+			
+			
+			list = (List<RestVO>)ois.readObject();
+			System.out.println(list.hashCode());
+			System.out.println(list.get(0).getName());
+			List<RestVO> list2 = (List<RestVO>) ois.readObject();
+			
+			
+			System.out.println(list2.hashCode());
+			System.out.println(list.get(0).getName());
+			System.out.println(list == list2);
+			
+/*			for(Iterator<RestVO> it = t.list.iterator(); it.hasNext();){
 
 				RestVO vo = it.next();
 				System.out.println(vo.toString());
 				System.out.println("전송끝");
-			}
+			}*/
 
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
 
 	}

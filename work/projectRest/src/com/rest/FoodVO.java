@@ -74,7 +74,16 @@ public class FoodVO implements Serializable{
 				name += "　"; 
 			}
 		}
-		String str = String.format("%s\t%4s %6d %4s %.2g %6s %2s", name , "가격: " , price , "평점: " , rating , "계절메뉴: " , season);
+		String sea=null;
+		if( season == null || season.equals("4")){
+			sea = "사계";
+			
+		}else if ( season.equals("s")){
+			sea = "여름";
+		}else if ( season.equals("w")){
+			sea = "겨울";
+		}
+		String str = String.format("%s\t%4s %6d %4s %.2g %6s %2s", name , "가격: " , price , "평점: " , rating , "계절메뉴: " , sea);
 		 
 
 		

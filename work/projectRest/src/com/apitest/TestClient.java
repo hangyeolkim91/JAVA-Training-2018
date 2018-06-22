@@ -2,6 +2,7 @@ package com.apitest;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -17,7 +18,7 @@ public class TestClient {
 	public static void main(String[] args) {
 
 		try {
-			Socket sock = new Socket("localhost",5555);
+			//Socket sock = new Socket("localhost",5555);
 		
 			List<RestVO> list;
 			
@@ -32,8 +33,31 @@ public class TestClient {
 			System.out.println(list.size());
 			
 			
-			ObjectOutputStream oos = new ObjectOutputStream(sock.getOutputStream());
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("test.txt"));
 			oos.writeObject(list);
+			list.get(0).setName("test2");
+			
+			System.out.println(list.get(0).getName());
+
+			oos.writeObject(list);
+			/*for(int i=0; i<2; i++){
+				RestVO nvo = new RestVO();
+				nvo.setName("test"+i);
+				list.set(0,nvo);
+				//list.get(0).setName("test"+i);
+				System.out.println(list.get(0).getName());
+				oos.writeObject(list);
+			}*/
+			
+			oos.close();
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("test.txt"));
+			
+			List<RestVO> l1 = (List<RestVO>) ois.readObject();
+			List<RestVO> l2 = (List<RestVO>) ois.readObject();
+			
+			System.out.println(l1.get(0).getName());
+			System.out.println(l2.get(0).getName());
+			//list = (List<RestVO>) ois.readObject();
 			/*for(Iterator<RestVO> it = list.iterator(); it.hasNext();){
 				
 				RestVO vo = it.next();
@@ -52,6 +76,7 @@ public class TestClient {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 
