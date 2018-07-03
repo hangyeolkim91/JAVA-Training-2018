@@ -1,6 +1,11 @@
 package algo.programmers;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class AlgoMain {
 
@@ -24,9 +29,20 @@ public class AlgoMain {
 		
 		System.out.println(Arrays.toString(answer));*/
 		
-		KakaoBrian kb = new KakaoBrian();
+/*		KakaoBrian kb = new KakaoBrian();
 		String sentence = "HaEaLaLaObWORLDb";
-		System.out.println(kb.solution(sentence));
+		System.out.println(kb.solution(sentence));*/
+		
+		
+		Solution3 s = new Solution3();
+		long a = 10000000000L;
+		int b = (int)a%26;
+		System.out.println(b);
+		String rule = "abcdefghij";
+		String A ="jjjjjjjjjj";
+		String B = "bbbbbbbbbb";
+		String r =s.solution(rule, A, B);
+		System.out.println(r);
 	}
 
 }

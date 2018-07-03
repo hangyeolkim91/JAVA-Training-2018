@@ -33,13 +33,20 @@ public class TestClient {
 			System.out.println(list.size());
 			
 			
-			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("test.txt"));
-			oos.writeObject(list);
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("test.txt",true));
+			/*oos.writeObject(vo);
 			list.get(0).setName("test2");
+			vo.setName("test2");
+			System.out.println(vo.getName());
+			oos.reset();
+			oos.writeObject(vo);*/
 			
-			System.out.println(list.get(0).getName());
-
-			oos.writeObject(list);
+			for(int i=0; i<2; i++){
+				oos.writeObject(vo);
+				vo.setName("test2");
+				oos.reset();
+			}
+			
 			/*for(int i=0; i<2; i++){
 				RestVO nvo = new RestVO();
 				nvo.setName("test"+i);
@@ -51,12 +58,18 @@ public class TestClient {
 			
 			oos.close();
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("test.txt"));
+
+			RestVO o = (RestVO) ois.readObject();
+			RestVO o1 = (RestVO) ois.readObject();
 			
-			List<RestVO> l1 = (List<RestVO>) ois.readObject();
-			List<RestVO> l2 = (List<RestVO>) ois.readObject();
+			System.out.println(o.toString());
+			System.out.println(o1.toString());
 			
-			System.out.println(l1.get(0).getName());
-			System.out.println(l2.get(0).getName());
+/*			List<RestVO> l1 = (List<RestVO>) ois.readObject();
+			List<RestVO> l2 = (List<RestVO>) ois.readObject();*/
+			
+//			System.out.println(l1.get(0).getName());
+//			System.out.println(l2.get(0).getName());
 			//list = (List<RestVO>) ois.readObject();
 			/*for(Iterator<RestVO> it = list.iterator(); it.hasNext();){
 				
